@@ -1,8 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
-var id = 0;
-
 function buildKey(typeKey, id) {
   return [typeKey, id].join(':');
 }
@@ -13,7 +11,7 @@ function stringStartsWith(string, pattern) {
 
 export default DS.Adapter.extend({
   generateIdForRecord: function(store) {
-    return id++;
+    return Math.floor((Math.random() * 1000000) + 1);;
   },
 
   find: function(store, type, id) {
