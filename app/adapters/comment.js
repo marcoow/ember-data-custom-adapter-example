@@ -16,7 +16,7 @@ function loadPost(store, comment) {
 export default Application.extend({
   find: function(store, type, id) {
     var _this = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       _this._super(store, type, id).then(function(comment) {
         loadPost(store, comment).then(function() {
           resolve(comment);
@@ -27,7 +27,7 @@ export default Application.extend({
 
   findAll: function(store, type) {
     var _this = this;
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       _this._super(store, type).then(function(comments) {
         var promises = comments.map(function(comment) {
           return loadPost(store, comment);

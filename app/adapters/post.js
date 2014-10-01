@@ -5,7 +5,7 @@ export default Application.extend({
   findHasMany: function(store, record, url, relationship) {
     if (relationship.key === 'comments') {
       var _this = this;
-      return new Ember.RSVP.Promise(function(resolve, reject) {
+      return new Ember.RSVP.Promise(function(resolve) {
         var serializer = store.serializerFor(relationship.type.typeKey);
         _this.findAll(store, relationship.type).then(function(comments) {
           comments = comments.map(function(comment) {

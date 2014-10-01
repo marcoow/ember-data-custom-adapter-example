@@ -10,8 +10,8 @@ function stringStartsWith(string, pattern) {
 }
 
 export default DS.Adapter.extend({
-  generateIdForRecord: function(store) {
-    return Math.floor((Math.random() * 1000000) + 1);;
+  generateIdForRecord: function() {
+    return Math.floor((Math.random() * 1000000) + 1);
   },
 
   find: function(store, type, id) {
@@ -27,7 +27,7 @@ export default DS.Adapter.extend({
   },
 
   findAll: function(store, type) {
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       var records = [];
       for (var i = 0; i < sessionStorage.length; i++) {
         var key = sessionStorage.key(i);
@@ -42,7 +42,7 @@ export default DS.Adapter.extend({
   createRecord: function(store, type, record) {
     var data = this.serialize(record, { includeId: true });
 
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       var key = buildKey(type.typeKey, record.id);
       sessionStorage.setItem(key, data);
       resolve(record);
@@ -52,7 +52,7 @@ export default DS.Adapter.extend({
   updateRecord: function(store, type, record) {
     var data = this.serialize(record, { includeId: true });
 
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       var key = buildKey(type.typeKey, record.id);
       sessionStorage.setItem(key, data);
       resolve(record);
@@ -60,7 +60,7 @@ export default DS.Adapter.extend({
   },
 
   deleteRecord: function(store, type, record) {
-    return new Ember.RSVP.Promise(function(resolve, reject) {
+    return new Ember.RSVP.Promise(function(resolve) {
       var key = buildKey(type.typeKey, record.id);
       sessionStorage.removeItem(key);
       resolve(record);
