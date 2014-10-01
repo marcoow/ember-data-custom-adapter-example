@@ -1,0 +1,5 @@
+<p>This application defines <code>post</code> and <code>comment</code> models where a <code>post</code> has many <code>comment</code>s which in turn belong to a <code>post</code>.</p>
+
+<p>The index route attaches the Ember Data store object as <code>__store__</code> to the <code>window</code> so you can use that to play with the models:</p>
+
+<pre><code>window.__store.__find('post');</code></pre>
